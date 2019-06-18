@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Training_Vendor::main"
+            title="Vendors"
+            translate="title"
+            module="Training_Vendor"
+            sortOrder="30"
+            parent="Magento_Catalog::inventory"
+            action="vendor"
+            resource="Training_Vendor::main"
+        />
+    </menu>
+</config>
