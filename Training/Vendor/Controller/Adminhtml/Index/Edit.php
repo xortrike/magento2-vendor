@@ -2,6 +2,9 @@
 
 namespace Training\Vendor\Controller\Adminhtml\Index;
 
+/**
+ * Controller for edit item
+ */
 class Edit extends \Magento\Backend\App\Action
 {
     /**
@@ -19,28 +22,33 @@ class Edit extends \Magento\Backend\App\Action
     /**
      * @var \Training\Vendor\Model\Vendor
      */
-    protected $_model;
+    protected $modelVendor;
 
     /**
+     * Class constructor
+     * 
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param \Magento\Framework\Registry $registry
-     * @param \Training\Vendor\Model\Vendor $model
+     * @param \Training\Vendor\Model\Vendor $modelVendor
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\Registry $registry,
-        \Training\Vendor\Model\Vendor $model
+        \Training\Vendor\Model\Vendor $modelVendor
     ) {
+        parent::__construct($context);
+
         $this->_resultPageFactory = $resultPageFactory;
         $this->_coreRegistry = $registry;
-        $this->_model = $model;
-        parent::__construct($context);
+        $this->modelVendor = $modelVendor;
     }
 
     /**
-     * {@inheritdoc}
+     * Check permission for passed action
+     * 
+     * @return bool
      */
     protected function _isAllowed()
     {
@@ -54,12 +62,13 @@ class Edit extends \Magento\Backend\App\Action
      */
     protected function _initAction()
     {
-        // load layout, set active menu and breadcrumbs
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->_resultPageFactory->create();
+        // load layout, set active menu and breadcrumbs
         $resultPage->setActiveMenu('Training_Vendor::index')
             ->addBreadcrumb(__('Vendor'), __('Vendor'))
             ->addBreadcrumb(__('Manage Vendors'), __('Manage Vendors'));
+
         return $resultPage;
     }
 
@@ -67,22 +76,20 @@ class Edit extends \Magento\Backend\App\Action
      * Edit Vendor
      *
      * @return \Magento\Backend\Model\View\Result\Page|\Magento\Backend\Model\View\Result\Redirect
-     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function execute()
     {
         $id = $this->getRequest()->getParam('id');
-        $model = $this->_model;
+        $model = $this->modelVendor;
 
         // If you have got an id, it's edition
         if ($id) {
             $model->load($id);
             if (!$model->getId()) {
+                // Add error message
                 $this->messageManager->addError(__('This vendor not exists.'));
-                /** \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
-                $resultRedirect = $this->resultRedirectFactory->create();
-
-                return $resultRedirect->setPath('*/*/');
+                // Redirect to default page
+                return $this->resultRedirectFactory->create()->setPath('*/*/');
             }
         }
 

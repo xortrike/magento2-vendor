@@ -7,6 +7,9 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 use Magento\Framework\UrlInterface;
 
+/**
+ * Action grid columns
+ */
 class VendorActions extends Column
 {
     /**
@@ -15,6 +18,8 @@ class VendorActions extends Column
     protected $urlBuilder;
 
     /**
+     * Class constructor
+     * 
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
      * @param UrlInterface $urlBuilder
@@ -28,8 +33,9 @@ class VendorActions extends Column
         array $components = [],
         array $data = []
     ) {
-        $this->urlBuilder = $urlBuilder;
         parent::__construct($context, $uiComponentFactory, $components, $data);
+
+        $this->urlBuilder = $urlBuilder;
     }
 
     /**

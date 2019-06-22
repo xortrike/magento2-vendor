@@ -7,32 +7,32 @@ use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 
+/**
+ * Setup - Install tables schema
+ */
 class InstallSchema implements InstallSchemaInterface
 {
     /**
      * Install
      * @param SchemaSetupInterface $setup
      * @param ModuleContextInterface $context
-     * @return Void
      */
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->startSetup();
 
-        $version = $context->getVersion();
-
         // Create table schema - Vendor
-        $this->setVendorSchema($setup, $version);
+        $this->setVendorSchema($setup);
 
         $setup->endSetup();
     }
 
     /**
      * Table Schema - Vendor
-     * @param SchemaSetupInterface &$setup
-     * @return Void
+     * 
+     * @param SchemaSetupInterface $setup
      */
-    private function setVendorSchema(&$setup, &$version)
+    private function setVendorSchema(&$setup)
     {
         // Table name
         $tableName = $setup->getTable('training_vendor');
@@ -47,7 +47,7 @@ class InstallSchema implements InstallSchemaInterface
         // Create table object
         $table = $connection->newTable($tableName);
         // Set table information and options
-        $table->setComment('UkrSolution Firewall - Black & White list');
+        $table->setComment('Training Vendor - Vendors');
         $table->setOption('type', 'InnoDB');
         $table->setOption('charset', 'utf8');
 

@@ -2,20 +2,26 @@
 
 namespace Training\Vendor\Block\Adminhtml\Index\Edit;
 
+/**
+ * Construct edit form
+ */
 class Form extends \Magento\Backend\Block\Widget\Form\Generic
 {
-
     /**
      * @var \Magento\Store\Model\System\Store
      */
     protected $_systemStore;
 
     /**
+     * Class constructor
+     * 
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Data\FormFactory $formFactory
      * @param \Magento\Store\Model\System\Store $systemStore
      * @param array $data
+     * 
+     * @return void
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
@@ -62,6 +68,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
 
         $form->setHtmlIdPrefix('index_');
 
+        // Base fieldset
         $fieldset = $form->addFieldset(
             'base_fieldset',
             [
@@ -70,6 +77,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             ]
         );
 
+        // Field ID
         if ($model->getId()) {
             $fieldset->addField(
                 'entity_id',
@@ -78,6 +86,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             );
         }
 
+        // Field Name
         $fieldset->addField(
             'name',
             'text',
@@ -89,6 +98,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             ]
         );
 
+        // Field Description
         $fieldset->addField(
             'description',
             'textarea',
@@ -100,6 +110,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             ]
         );
 
+        // Field logo
         $fieldset->addField(
             'logo',
             'image',

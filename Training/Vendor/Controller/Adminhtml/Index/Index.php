@@ -2,10 +2,15 @@
 
 namespace Training\Vendor\Controller\Adminhtml\Index;
 
+/**
+ * Controller default page
+ */
 class Index extends \Magento\Backend\App\Action
 {
     /**
-     * Test authorization and access in this controller
+     * Check permission for passed action
+     * 
+     * @return bool
      */
     protected function _isAllowed()
     {
@@ -14,6 +19,7 @@ class Index extends \Magento\Backend\App\Action
 
     /**
      * Execute action based
+     * 
      * @return ResultFactory
      */
     public function execute()

@@ -2,30 +2,36 @@
 
 namespace Training\Vendor\Model;
 
+/**
+ * Model Vendor
+ */
 class Vendor extends \Magento\Framework\Model\AbstractModel
 {
-    const VENDOR_ID = 'entity_id'; // We define the id fieldname
+    /**
+     * @var string Fieldname ID
+     */
+    const VENDOR_ID = 'entity_id';
 
     /**
      * Prefix of model events names
      *
      * @var string
      */
-    protected $_eventPrefix = 'vendor'; // parent value is 'core_abstract'
+    protected $_eventPrefix = 'vendor';
 
     /**
      * Name of the event object
      *
      * @var string
      */
-    protected $_eventObject = 'vendor'; // parent value is 'object'
+    protected $_eventObject = 'vendor';
 
     /**
      * Name of object id field
      *
      * @var string
      */
-    protected $_idFieldName = self::VENDOR_ID; // parent value is 'id'
+    protected $_idFieldName = self::VENDOR_ID;
 
     /**
      * Initialize resource model

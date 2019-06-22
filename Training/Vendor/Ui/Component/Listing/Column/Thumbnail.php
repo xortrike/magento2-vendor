@@ -7,6 +7,9 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\UrlInterface;
 
+/**
+ * Source column thumbnail
+ */
 class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
 {
     /**
@@ -20,8 +23,12 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
     protected $urlBuilder;
 
     /**
+     * Class constructor
+     * 
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
+     * @param StoreManagerInterface $storeManager
+     * @param UrlInterface $urlBuilder
      * @param array $components
      * @param array $data
      */
@@ -33,16 +40,17 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
         array $components = [],
         array $data = []
     ) {
+        parent::__construct($context, $uiComponentFactory, $components, $data);
+
         $this->storeManager = $storeManager;
         $this->urlBuilder = $urlBuilder;
-
-        parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
     /**
      * Prepare Data Source
      *
      * @param array $dataSource
+     * 
      * @return array
      */
     public function prepareDataSource(array $dataSource)

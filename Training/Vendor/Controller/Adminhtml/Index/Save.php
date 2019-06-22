@@ -5,15 +5,33 @@ namespace Training\Vendor\Controller\Adminhtml\Index;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\App\Filesystem\DirectoryList;
 
+/**
+ * Controller save item
+ */
 class Save extends \Magento\Backend\App\Action
 {
-    protected $model;
+    /**
+     * @var \Training\Vendor\Model\Vendor
+     */
+    protected $modelVendor;
+
+    /**
+     * @var \Magento\MediaStorage\Model\File\UploaderFactory
+     */
     protected $uploaderFactory;
+
+    /**
+     * @var \Magento\Framework\Filesystem
+     */
     protected $filesystem;
 
     /**
-     * @param Action\Context $context
-     * @param \Training\Vendor\Model\Vendor $model
+     * Class constructor
+     * 
+     * @param \Magento\Backend\App\Action\Context $context
+     * @param \Training\Vendor\Model\Vendor $modelVendor
+     * @param \Magento\MediaStorage\Model\File\UploaderFactory $UploaderFactory
+     * @param \Magento\Framework\Filesystem $filesystem
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
@@ -23,13 +41,15 @@ class Save extends \Magento\Backend\App\Action
     ) {
         parent::__construct($context);
 
-        $this->model = $modelVendor;
+        $this->modelVendor = $modelVendor;
         $this->uploaderFactory = $UploaderFactory;
         $this->filesystem = $filesystem;
     }
 
     /**
-     * {@inheritdoc}
+     * Check permission for passed action
+     * 
+     * @return bool
      */
     protected function _isAllowed()
     {
@@ -55,7 +75,7 @@ class Save extends \Magento\Backend\App\Action
         // Load item by ID
         $id = $this->getRequest()->getParam('id');
         if ($id) {
-            $this->model->load($id);
+            $this->modelVendor->load($id);
         }
 
         // Save or delete logo
@@ -64,19 +84,19 @@ class Save extends \Magento\Backend\App\Action
         } else if (isset($data['logo']['value'])) {
             $data['logo'] = $this->uploadFile('logo', $data['logo']['value']);
         } else {
-            $data['logo'] = $this->uploadFile('logo', $this->model->getLogo());
+            $data['logo'] = $this->uploadFile('logo', $this->modelVendor->getLogo());
         }
 
-        $this->model->setData($data);
+        $this->modelVendor->setData($data);
 
         try {
-            $this->model->save();
+            $this->modelVendor->save();
             $this->messageManager->addSuccess(__('Vendor saved'));
             $this->_getSession()->setFormData(false);
 
             // Save and continue edit
             if ($this->getRequest()->getParam('back')) {
-                return $resultRedirect->setPath('*/*/edit', ['id' => $this->model->getId(), '_current' => true]);
+                return $resultRedirect->setPath('*/*/edit', ['id' => $this->modelVendor->getId(), '_current' => true]);
             }
 
             // Save
@@ -90,6 +110,14 @@ class Save extends \Magento\Backend\App\Action
         return $resultRedirect->setPath('*/*/edit', ['entity_id' => $id]);
     }
 
+    /**
+     * Upload file
+     * 
+     * @param string $scope Image param name
+     * @param string $uploadedFile Upload file path
+     * 
+     * @return string
+     */
     public function uploadFile($scope, $uploadedFile)
     {
         try {
@@ -105,9 +133,9 @@ class Save extends \Magento\Backend\App\Action
                 return $myFolder.$uploader->getUploadedFileName();
             }
         } catch (LocalizedException $e) {
-            //
+            $this->messageManager->addError($e->getMessage());
         } catch (\Exception $e) {
-            //
+            $this->messageManager->addError($e->getMessage());
         }
 
         return $uploadedFile;

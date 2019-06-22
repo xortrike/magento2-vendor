@@ -2,6 +2,9 @@
 
 namespace Training\Vendor\Model\ResourceModel\Vendor;
 
+/**
+ * Factory Collection model vendor
+ */
 class CollectionFactory
 {
     /**
@@ -36,6 +39,7 @@ class CollectionFactory
      * Create class instance with specified parameters
      *
      * @param array $data
+     * 
      * @return \Training\Vendor\Model\ResourceModel\Vendor\Collection
      */
     public function create(array $data = array())

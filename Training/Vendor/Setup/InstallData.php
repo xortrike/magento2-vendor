@@ -8,15 +8,32 @@ use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 
+/**
+ * Setup - Install data to tables
+ */
 class InstallData implements InstallDataInterface
 {
+    /**
+     * @var \Magento\Eav\Setup\EavSetupFactory
+     */
     private $_eavSetupFactory;
 
+    /**
+     * Class constructor
+     * 
+     * @param \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
+     */
 	public function __construct(EavSetupFactory $eavSetupFactory)
 	{
 		$this->_eavSetupFactory = $eavSetupFactory;
     }
 
+    /**
+     * Install data
+     * 
+     * @param \Magento\Framework\Setup\ModuleDataSetupInterface $setup
+     * @param \Magento\Framework\Setup\ModuleContextInterface $context
+     */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->startSetup();
@@ -29,12 +46,17 @@ class InstallData implements InstallDataInterface
         $setup->endSetup();
     }
 
+    /**
+     * Add custom attribute to product
+     * 
+     * @param \Magento\Framework\Setup\ModuleDataSetupInterface $setup
+     */
     private function addProductAttribute(&$setup)
     {
-        /** @var EavSetup $eavSetup */
+        /** @var \Magento\Eav\Setup\EavSetup $eavSetup */
         $eavSetup = $this->_eavSetupFactory->create(['setup' => $setup]);
 
-        $attribute = $eavSetup->getAttribute(\Magento\Catalog\Model\Product::ENTITY, 'vendor_name');
+        $attribute = $eavSetup->getAttribute(\Magento\Catalog\Model\Product::ENTITY, 'vendor_id');
 
         if (empty($attribute) === false) {
             return false;

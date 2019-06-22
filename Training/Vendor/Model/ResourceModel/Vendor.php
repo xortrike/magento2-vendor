@@ -2,6 +2,9 @@
 
 namespace Training\Vendor\Model\ResourceModel;
 
+/**
+ * Resource model Vendor
+ */
 class Vendor extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     /**

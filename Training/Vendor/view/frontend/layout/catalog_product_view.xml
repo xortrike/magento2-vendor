@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Training_Vendor::css/product.css" />
+    </head>
+    <body>
+        <referenceContainer name="product.info.stock.sku">
+            <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.vendor" template="Training_Vendor::product/view/attribute.phtml" after="product.info.sku">
+                <arguments>
+                    <argument name="at_call" xsi:type="string">getVendorId</argument>
+                    <argument name="at_code" xsi:type="string">vendor_id</argument>
+                    <argument name="css_class" xsi:type="string">css_vendor_id</argument>
+                    <argument name="at_label" xsi:type="string">Vendors</argument>
+                    <argument name="add_attribute" xsi:type="string">itemprop="vendor_id"</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

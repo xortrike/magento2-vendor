@@ -2,8 +2,14 @@
 
 namespace Training\Vendor\Model\ResourceModel\Vendor;
 
+/**
+ * Collection model Vendor
+ */
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
+    /**
+     * @var string Fieldname ID
+     */
     protected $_idFieldName = \Training\Vendor\Model\Vendor::VENDOR_ID;
 
     /**

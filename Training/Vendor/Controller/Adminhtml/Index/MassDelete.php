@@ -7,6 +7,9 @@ use Magento\Backend\App\Action\Context;
 use Magento\Ui\Component\MassAction\Filter;
 use Training\Vendor\Model\ResourceModel\Vendor\CollectionFactory;
 
+/**
+ * Controller action mass delete
+ */
 class MassDelete extends \Magento\Backend\App\Action
 {
     /**
@@ -20,16 +23,20 @@ class MassDelete extends \Magento\Backend\App\Action
     protected $collectionFactory;
 
     /**
+     * Class constructor
+     * 
      * @param Context $context
      * @param Filter $filter
      * @param CollectionFactory $collectionFactory
      */
     public function __construct(Context $context, Filter $filter, CollectionFactory $collectionFactory)
     {
+        parent::__construct($context);
+
         $this->filter = $filter;
         $this->collectionFactory = $collectionFactory;
-        parent::__construct($context);
     }
+
     /**
      * Execute action
      *
@@ -48,6 +55,7 @@ class MassDelete extends \Magento\Backend\App\Action
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+
         return $resultRedirect->setPath('*/*/');
     }
 }

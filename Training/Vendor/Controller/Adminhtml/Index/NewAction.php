@@ -2,6 +2,9 @@
 
 namespace Training\Vendor\Controller\Adminhtml\Index;
 
+/**
+ * Controller for new item
+ */
 class NewAction extends \Magento\Backend\App\Action
 {
     /**
@@ -10,6 +13,8 @@ class NewAction extends \Magento\Backend\App\Action
     protected $_resultForwardFactory;
 
     /**
+     * Class constructor
+     * 
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
      */
@@ -17,12 +22,15 @@ class NewAction extends \Magento\Backend\App\Action
         \Magento\Backend\App\Action\Context $context,
         \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
     ) {
-        $this->_resultForwardFactory = $resultForwardFactory;
         parent::__construct($context);
+
+        $this->_resultForwardFactory = $resultForwardFactory;
     }
 
     /**
-     * {@inheritdoc}
+     * Check permission for passed action
+     * 
+     * @return bool
      */
     protected function _isAllowed()
     {

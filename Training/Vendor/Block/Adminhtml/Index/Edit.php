@@ -2,6 +2,9 @@
 
 namespace Training\Vendor\Block\Adminhtml\Index;
 
+/**
+ * Block for edit form
+ */
 class Edit extends \Magento\Backend\Block\Widget\Form\Container
 {
     /**
@@ -12,9 +15,13 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
     protected $_coreRegistry = null;
 
     /**
+     * Class constructor
+     * 
      * @param \Magento\Backend\Block\Widget\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param array $data
+     * 
+     * @return void
      */
     public function __construct(
         \Magento\Backend\Block\Widget\Context $context,
@@ -88,7 +95,6 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
 
     /**
      * Getter of url for "Save and Continue" button
-     * tab_id will be replaced by desired by JS later
      *
      * @return string
      */

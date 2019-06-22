@@ -2,8 +2,16 @@
 
 namespace Training\Vendor\Model\Entity\Attribute\Source;
 
+/**
+ * Source multiselect options
+ */
 class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
 {
+    /**
+     * Class constructor
+     * 
+     * @param \Training\Vendor\Model\Vendor $vendorModel
+     */
     public function __construct(
         \Training\Vendor\Model\Vendor $vendorModel
     ) {

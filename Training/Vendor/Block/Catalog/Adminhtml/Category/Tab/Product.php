@@ -2,12 +2,22 @@
 
 namespace Training\Vendor\Block\Catalog\Adminhtml\Category\Tab;
 
+/**
+ * Block product tab
+ */
 class Product extends \Magento\Catalog\Block\Adminhtml\Category\Tab\Product
 {
+    /**
+     * Mark custom fields only once
+     * 
+     * @var bool
+     */
     private $customFields = false;
 
     /**
-     * @param Column $column
+     * Apply filter for custom fields
+     * 
+     * @param \Magento\Backend\Block\Widget\Grid\Column $column
      * @return $this
      */
     protected function _addColumnFilterToCollection($column)
@@ -29,13 +39,15 @@ class Product extends \Magento\Catalog\Block\Adminhtml\Category\Tab\Product
     }
 
     /**
-     * @return Grid
+     * Join custom fields
+     * 
+     * @return \Magento\Backend\Block\Widget\Grid
      */
     protected function _prepareCollection()
     {
         $grid = parent::_prepareCollection();
 
-        // Add custom fiels
+        // Join custom fiels
         $this->joinCustomFields();
 
         if ($this->getCollection()->isLoaded()) {
@@ -46,7 +58,9 @@ class Product extends \Magento\Catalog\Block\Adminhtml\Category\Tab\Product
     }
 
     /**
-     * @return Extended
+     * Add column to grid table
+     * 
+     * @return \Magento\Backend\Block\Widget\Grid\Extended
      */
     protected function _prepareColumns()
     {
@@ -67,6 +81,8 @@ class Product extends \Magento\Catalog\Block\Adminhtml\Category\Tab\Product
 
     /**
      * Join custom fields
+     * 
+     * @return void
      */
     private function joinCustomFields()
     {

@@ -1,0 +1,43 @@
+<?php
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$_product = $block->getProduct();
+$_call = $block->getAtCall();
+$_code = $block->getAtCode();
+$_className = $block->getCssClass();
+$_attributeLabel = $block->getAtLabel();
+$_attributeType = $block->getAtType();
+$_attributeAddAttribute = $block->getAddAttribute();
+
+$renderLabel = true;
+// if defined as 'none' in layout, do not render
+if ($_attributeLabel == 'none') {
+    $renderLabel = false;
+}
+
+if ($_attributeLabel && $_attributeLabel == 'default') {
+    $_attributeLabel = $_product->getResource()->getAttribute($_code)->getStoreLabel();
+}
+if ($_attributeType && $_attributeType == 'text') {
+    $_attributeValue = ($_helper->productAttribute($_product, $_product->$_call(), $_code)) ? $_product->getAttributeText($_code) : '';
+} else {
+    $_attributeValue = $_helper->productAttribute($_product, $_product->$_call(), $_code);
+}
+
+// Get vendor logo by IDs
+$_helperVendor = $this->helper(\Training\Vendor\Helper\Vendor::class);
+$_vendorLogo = $_helperVendor->getVendorLogoById($_attributeValue);
+?>
+<?php if (empty($_vendorLogo) === false): ?>
+<div class="product attribute <?php echo $block->escapeHtml($_className); ?>">
+    <?php if ($renderLabel): ?><strong class="type"><?php echo $block->escapeHtml($_attributeLabel); ?></strong><?php endif; ?>
+    <div class="value" <?php echo $block->escapeHtml($_attributeAddAttribute); ?>>
+    <?php foreach ($_vendorLogo as $vendor): ?>
+        <img
+            src="<?php echo $block->escapeUrl($vendor['logo']); ?>"
+            alt="<?php echo $block->escapeHtml($vendor['name']); ?>"
+            title="<?php echo $block->escapeHtml($vendor['name']); ?>"
+        />
+    <?php endforeach; ?>
+    </div>
+</div>
+<?php endif; ?>
